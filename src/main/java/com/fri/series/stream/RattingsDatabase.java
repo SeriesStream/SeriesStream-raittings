@@ -7,8 +7,8 @@ import java.util.Arrays;
 public class RattingsDatabase {
     static Rattings it1 = new Rattings(1,1,1,2.5);
     static Rattings it2 = new Rattings(2,1,2,3);
-    static Rattings big1 = new Rattings(2,2,1,5);
-    static Rattings big2 = new Rattings(2,2,3,5);
+    static Rattings big1 = new Rattings(3,2,1,5);
+    static Rattings big2 = new Rattings(4,2,3,5);
     private static List<Rattings> rattings = Arrays.asList(it1, it2, big1, big2);
 
     public static List<Rattings> getRattings() {
@@ -35,5 +35,9 @@ public class RattingsDatabase {
                 break;
             }
         }
+    }
+
+    public static List<Rattings> getRattingsFromUser(int id) {
+        return rattings.stream().filter(p -> p.getUserId() == id).collect(Collectors.toList());
     }
 }

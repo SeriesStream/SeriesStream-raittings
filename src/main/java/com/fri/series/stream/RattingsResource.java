@@ -57,9 +57,16 @@ public class RattingsResource {
         }
     }
 
-    public Response getRattingdEpisodeFallback(int id){
-        System.out.println("Napaka pri poizvedbi za epizodo z idijem" + id);
-        return Response.status(Response.Status.NOT_FOUND).build();
+    @GET
+    @Timed(name = "get_episodes_long_lasting")
+    @Path("user/{id}")
+    public Response getRattings(@PathParam("id") int id) {
+        List<Rattings> rattings = RattingsDatabase.getRattingsFromUser(id);
+        if(rattings != null){
+            return Response.ok(rattings).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 
     @CommandKey("find-episode")
@@ -83,6 +90,11 @@ public class RattingsResource {
             }
         }
         log.error("baseUrl ni prisoten");
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    public Response getRattingdEpisodeFallback(int id){
+        System.out.println("Napaka pri poizvedbi za epizodo z idijem" + id);
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
