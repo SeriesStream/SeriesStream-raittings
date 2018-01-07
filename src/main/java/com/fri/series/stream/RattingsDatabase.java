@@ -3,6 +3,7 @@ package com.fri.series.stream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class RattingsDatabase {
     static Rattings it1 = new Rattings(1,1,1,2.5);
