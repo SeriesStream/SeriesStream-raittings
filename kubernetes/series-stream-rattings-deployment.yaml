@@ -1,0 +1,35 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: series-stream-rattings-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: series-stream-rattings
+    spec:
+      containers:
+      - image: lavrinec/series-stream-rattings:0.01
+        name: series-stream-rattings
+        env:
+          - name: KUMULUZEE_DISCOVERY_CLUSTER
+            value: minikube
+          - name: KUMULUZEE_DISCOVERY_ETCD_HOSTS
+            value: http://etcd:2379
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: server
+          initialDelaySeconds: 20
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: server
+          initialDelaySeconds: 10
+          periodSeconds: 3
+        ports:
+        - containerPort: 8080
+          name: server
+          protocol: TCP

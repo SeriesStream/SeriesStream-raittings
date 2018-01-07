@@ -1,0 +1,57 @@
+kumuluzee:
+  name: series-stream-rattings
+  env:
+    name: dev
+  version: 0.0.1
+  config:
+    etcd:
+      hosts: http://159.8.79.87:30024
+  discovery:
+    etcd:
+      hosts: http://159.8.79.87:30024
+  cors-filter:
+    servlet:
+      allow-origin: "*"
+  metrics:
+    web-instrumentation:
+      - name: metrics-endpoint
+        url-pattern: /metrics/*
+        status-codes: "200, 500"
+      - name: prometheus-endpoint
+        url-pattern: /prometheus/*
+  fault-tolerance:
+    circuit-breaker:
+      delay: 30s
+    parcheeses:
+      bulkhead:
+        value: 5
+      find-episode:
+        timeout:
+          value: 2500ms
+        circuit-breaker:
+          request-volume-threshold: 30
+          failure-ratio: 0.3
+          metrics:
+            rolling-window:
+              size: 8s
+              buckets: 4
+  logs:
+      config-file: '<?xml version="1.0" encoding="UTF-8"?>
+                    <Configuration name="orders">
+                        <Appenders>
+                            <Console name="console" target="SYSTEM_OUT">
+                                <PatternLayout pattern="%d %p %marker %m %X %ex %n"/>
+                            </Console>
+                            <Socket name="logstash" host="a342d978-6f36-44ad-bb16-e07a3c77eabf-ls.logit.io" port="14475"
+                                                                 protocol="tcp">
+                                <JSONLayout complete="false" compact="true" eventEol="true" charset="UTF-8" properties="true"/>
+                            </Socket>
+                        </Appenders>
+                        <Loggers>
+                            <!-- Default logger -->
+                            <Root level="all">
+                                <AppenderRef ref="console" level="info"/>
+                                <AppenderRef ref="logstash" level="trace"/>
+                            </Root>
+                        </Loggers>
+                    </Configuration>'
