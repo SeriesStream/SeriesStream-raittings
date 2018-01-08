@@ -41,4 +41,8 @@ public class RattingsDatabase {
     public static List<Rattings> getRattingsFromUser(int id) {
         return rattings.stream().filter(p -> p.getUserId() == id).collect(Collectors.toList());
     }
+
+    public static List<Rattings> getRattingsFromEpisode(int id) {
+        return rattings.stream().filter(p -> p.getEpisodeId() == id).collect(Collectors.toList());
+    }
 }

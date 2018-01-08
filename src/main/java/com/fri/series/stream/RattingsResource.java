@@ -99,6 +99,35 @@ public class RattingsResource {
     }
 
     @GET
+    @Path("episode/{id}/sum")
+    public Response getRattingForEpisodeSum(@PathParam("id") int id) {
+        List<Rattings> rattings = RattingsDatabase.getRattingsFromEpisode(id);
+        if(rattings != null){
+            double sum = 0;
+            int cnt = 0;
+            for (Rattings ratting : rattings) {
+                cnt++;
+                sum += ratting.getRatting();
+            }
+            double result = cnt > 0 ? sum/cnt : 0;
+            return Response.ok(result).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @GET
+    @Path("episode/{id}")
+    public Response getRattingForEpisode(@PathParam("id") int id) {
+        List<Rattings> rattings = RattingsDatabase.getRattingsFromEpisode(id);
+        if(rattings != null){
+            return Response.ok(rattings).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @GET
     @Path("{id}")
     @Counted(name = "ratting_counter")
     public Response getRatting(@PathParam("id") int id) {

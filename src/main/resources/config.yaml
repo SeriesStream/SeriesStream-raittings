@@ -2,7 +2,7 @@ kumuluzee:
   name: series-stream-rattings
   env:
     name: dev
-  version: 0.0.1
+  version: 0.0.3
   config:
     etcd:
       hosts: http://159.8.79.87:30024

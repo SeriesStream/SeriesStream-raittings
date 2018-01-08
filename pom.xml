@@ -20,7 +20,7 @@
 
     <groupId>com.fri.series.stream</groupId>
     <artifactId>series-stream-rattings</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
 	
 	<licenses>
         <license>

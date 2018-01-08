@@ -14,7 +14,7 @@ cache:
   - $HOME/.m2
 
 env:
-  - DOCKER_IMAGE=lavrinec/series-stream-rattings:0.02
+  - DOCKER_IMAGE=lavrinec/series-stream-rattings:0.03
 
 script:
   - mvn clean package -U
